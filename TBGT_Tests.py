@@ -43,23 +43,23 @@ def xpert(mapdict, sampleGenomePos, outPrefix):#Hardcode the codon to wildtype n
 
 	#hardcode the codon positions with the mutated codons and the associated probe change
 	classicXpertmut = {
-			'428' : [['AGG'],'prA'],
-			'430' : [['CCG'],'prA'], 
-			'431' : [['GGC'],'prA'], 
-			'432' : [['GAA'],'prB'],
-			'434' : [['GTG','ATA','ACG'],'prB'], 
-			'435' : [['GGC','TAC','TTC','GTC'],'prB'], 
-			'437' : [['GAC'],'prC'], 
-			'441' : [['CAG','TTG'],'prC'], 
-			'445' : [['TAC','GAC','CTC','AAC','CGC','GGC','AGC','TCC','ACC','CAG','CAA'],'prD'], 
-			'446' : [['CAG'],'prD'],
-			'450' : [['TTG','TGG','TTC'],'prE'], 
-			'452' : [['CCG'],'prE_del'],
+		'428' : {'AGG':['ProbeA']},
+		'430' : {'CCG':['ProbeA']},
+		'431' : {'GGC':['ProbeA','ProbeB']}, 
+		'432' : {'GAA':['ProbeB']},
+		'434' : {'GTG':['ProbeB'],'ATA':['ProbeB'],'ACG':['ProbeB']}, 
+		'435' : {'GTC':['ProbeB'],'TAC':['ProbeB_delayed'],'TTC':['ProbeB_delayed'],'GGC':['ProbeB']}, 
+		'437' : {'GAC':['ProbeC']},
+		'441' : {'CAG':['ProbeC'],'TTG':['ProbeC']},
+		'445' : {'TAC':['ProbeD'],'GAC':['ProbeD'],'CTC':['ProbeD'],'AAC':['ProbeD'],'CGC':['ProbeD_delayed'],'GGC':['ProbeD'],'AGC':['ProbeD'],'TCC':['ProbeD'],'CAG':['ProbeD'],'CAA':['ProbeD'],'ACC':['ProbeD']},
+		'446' : {'CAG':['ProbeD']},
+		'450' : {'TTG':['ProbeE'],'TGG':['ProbeE'],'TTC':['ProbeE']},
+		'452' : {'CCG':['ProbeE_delayed']},
 	}
-
+	
 	#output probe pattern
-	outputList=["1","1","1","1","1","1"]
-	outputKeys=["prA","prB","prC","prD","prE","prE_del"]
+	outputList=["1","1","1","1","1","1","1","1"]
+	outputKeys=["ProbeA","ProbeB","ProbeB_delayed","ProbeC","ProbeD","ProbeD_delayed","ProbeE","ProbeE_delayed"]
 
 	#Create output files
 	try:
@@ -67,7 +67,7 @@ def xpert(mapdict, sampleGenomePos, outPrefix):#Hardcode the codon to wildtype n
 	except IOError:
 		print('no room for save file')				
 		sys.exit()
-	xpertSave.write("Sample name"+"\t"+"RIF Resistance"+"\t"+"Codon number"+"\t"+"Codon"+"\t"+"Absent Probe"+"\t"+"Probe A"+"\t"+"Probe B"+"\t"+"Probe C"+"\t"+"Probe D"+"\t"+"Probe E"+"\t"+"Probe E delayed\n")
+	xpertSave.write("Sample name"+"\t"+"RIF Resistance"+"\t"+"Codon number"+"\t"+"Codon"+"\t"+"Capturing Probe"+"\t"+"ProbeA"+"\t"+"ProbeB"+"\t"+"ProbeBdelayed"+"\t"+"ProbeC"+"\t"+"ProbeD"+"\t"+"ProbeDdelayed"+"\t"+"ProbeE"+"\t"+"ProbeEdelayed\n")
 
 
 	#for each file make a copy of the WT codon patterns, mutate it based on the tab/vcf file and then record the associated result as a string per codon
@@ -91,22 +91,26 @@ def xpert(mapdict, sampleGenomePos, outPrefix):#Hardcode the codon to wildtype n
 		sampleOutputList=copy.deepcopy(outputList)
 		mutCodonList=[]
 		mutCodonValList=[]
-		probeSet=set() #use set as multiple mutations may cause the same probe change so don't count twice
+		capprobeSet=set() #use set as multiple mutations may cause the same probe change so don't count twice
 		#compare the wt and the sample codon lists and where they differ, put a 0 in the appropriate probe
+		capprobeList=list(capprobeSet)
+		capprobeList.sort()
 		for codonPos in codonList:
 			if codon_nuc[codonPos]!=sampleCodons[codonPos] and codonPos in classicXpertmut.keys(): #the codons are not the same the codon is part of the Xpert set
 				codonCheck="".join(sampleCodons[codonPos])
-				if codonCheck in classicXpertmut[codonPos][0]: #if the mutated codon is a known one, get the probe change and change in the output
-					probe=classicXpertmut[codonPos][1]
-					sampleOutputList[outputKeys.index(probe)]="0"
-					probeSet.add(probe)
-					mutCodonList.append(codonPos)
+				codnucres=classicXpertmut[codonPos]
+				if codonCheck in codnucres: #if the mutated codon is a known one, get the probe change and change in the output					
 					mutCodonValList.append(codonCheck)
-		probeList=list(probeSet)
-		probeList.sort()
+					mutCodonList.append(codonPos)					 
+					for capprobe in (codnucres[codonCheck]):						
+						sampleOutputList[outputKeys.index(capprobe)]="0"
+						if capprobe not in capprobeList:
+							capprobeList.append(capprobe)
+							capprobeSet.add(capprobe)
+		
 		#if the sample output differs from the WT output, write relevant information
 		if sampleOutputList!=outputList:
-			xpertSave.write(sample+"\t"+"DETECTED"+"\t"+",".join(mutCodonList)+"\t"+",".join(mutCodonValList)+"\t"+",".join(probeList)+"\t"+"\t".join(sampleOutputList)+"\n")
+			xpertSave.write(sample+"\t"+"DETECTED"+"\t"+",".join(mutCodonList)+"\t"+",".join(mutCodonValList)+"\t"+",".join(capprobeList)+"\t"+"\t".join(sampleOutputList)+"\n")
 		else: #is WT so inform
 			xpertSave.write(sample+"\t"+"NOT DETECTED\n")
 	xpertSave.close()	
@@ -324,7 +328,7 @@ def ultra(mapdict, sampleGenomePos, outPrefix):#Hardcode the codon to wildtype n
 	except IOError:
 		print('no room for save file')				
 		sys.exit()
-	ultraSave.write("Sample name"+"\t"+"RIF Resistance"+"\t"+"Codon number"+"\t"+"Codon"+"\t"+"rpoB1"+"\t"+"rpoB2"+"\t"+"rpoB3"+"\t"+"rpoB4A"+"\t"+"rpoB4B"+"\t"+"deltaTm"+"\n")
+	ultraSave.write("Sample name"+"\t"+"RIF Resistance"+"\t"+"Codon number"+"\t"+"Codon"+"\t"+"Capturing Probe"+"\t"+"rpoB1"+"\t"+"rpoB2"+"\t"+"rpoB3"+"\t"+"rpoB4A"+"\t"+"rpoB4B"+"\t"+"deltaTm"+"\n")
 
 
 	#for each file make a copy of the WT codon patterns, mutate it based on the tab/vcf file and then record the associated result as a string per codon
@@ -348,7 +352,7 @@ def ultra(mapdict, sampleGenomePos, outPrefix):#Hardcode the codon to wildtype n
 		sampleOutputList=copy.deepcopy(outputList)
 		mutCodonList=[]
 		mutCodonValList=[]
-		wtprobeList=[]
+		capprobeList=[]
 		deltaTmList=[]
 		#compare the wt and the sample codon lists and where they differ, put a 0 in the appropriate probe
 		for codonPos in codonList:
@@ -358,15 +362,15 @@ def ultra(mapdict, sampleGenomePos, outPrefix):#Hardcode the codon to wildtype n
 				if codonCheck in codnucres:					
 					mutCodonValList.append(codonCheck)
 					mutCodonList.append(codonPos)
-					for wtprobe in (codnucres[codonCheck][0]):
-						sampleOutputList[outputKeys.index(wtprobe)]="0"
+					for capprobe in (codnucres[codonCheck][0]):
+						sampleOutputList[outputKeys.index(capprobe)]="0"
 						deltaTmList.append(codnucres[codonCheck][1])
-						if wtprobe not in wtprobeList:
-							wtprobeList.append(wtprobe)
+						if capprobe not in capprobeList:
+							capprobeList.append(capprobe)
 		
 		#if the sample output differs from the WT output, write relevant information
 		if sampleOutputList!=outputList:
-			ultraSave.write(sample+"\t"+"DETECTED"+"\t"+",".join(mutCodonList)+"\t"+",".join(mutCodonValList)+"\t"+",".join(wtprobeList)+"\t"+"\t".join(sampleOutputList)+"\t"+",".join((deltaTmList.pop()))+"\n")
+			ultraSave.write(sample+"\t"+"DETECTED"+"\t"+",".join(mutCodonList)+"\t"+",".join(mutCodonValList)+"\t"+",".join(capprobeList)+"\t"+"\t".join(sampleOutputList)+"\t"+",".join((deltaTmList.pop()))+"\n")
 		else: #is WT so inform
 			ultraSave.write(sample+"\t"+"NOT DETECTED\n")
 	ultraSave.close()	
