@@ -114,9 +114,9 @@ mapf.close()
 #read in the tab or vcf files, keeping the SNP that is present at each of the positions in the genomePos
 #create a dictionary where the filename (before the underscore of the filename) is the key and a dictionary of all genome positions (keys) and their SNPs (if any) (values) is returned
 if args.type.upper()=='TAB':
-	sampleGenomePos= g2pio.tabInput(genomePos,args.folder)
+	sampleGenomePos= tbgtio.tabInput(genomePos,args.folder)
 elif args.type.upper()=='VCF':
-	sampleGenomePos= g2pio.vcfInput(genomePos,args.folder)
+	sampleGenomePos= tbgtio.vcfInput(genomePos,args.folder)
 else:
 	print("\n type input not recognised. Please use tab or vcf")
 	sys.exit()
@@ -134,19 +134,19 @@ else:
 
 if tests["X"]==1:	
 	print("Creating classic Xpert outputs")
-	g2pt.xpert(mapdict, sampleGenomePos, args.out)
+	tbgtt.xpert(mapdict, sampleGenomePos, args.out)
 if tests["U"]==1:	
 	print("Creating Xpert Ultra outputs")
-	g2pt.ultra(mapdict, sampleGenomePos, args.out)
+	tbgtt.ultra(mapdict, sampleGenomePos, args.out)
 if tests["H"]==1:	
 	print("Creating Hain LPA outputs")
-	g2pt.hain(mapdict, sampleGenomePos, args.out)
+	tbgtt.hain(mapdict, sampleGenomePos, args.out)
 if tests["N"]==1:	
 	print("Creating Nipro LPA outputs")
-	g2pt.nipro(mapdict, sampleGenomePos, args.out)
+	tbgtt.nipro(mapdict, sampleGenomePos, args.out)
 if tests["S"]==1:	
 	print("Creating rpoB Sanger sequencing outputs")
-	g2pt.sanger(mapdict, sampleGenomePos, args.out)
+	tbgtt.sanger(mapdict, sampleGenomePos, args.out)
 
 print("RDT test conversion complete")
 
@@ -154,6 +154,6 @@ print("RDT test conversion complete")
 #Create tables as requested by the user
 if args.summary.upper()=="Y":
 	print("Creating summary tables")
-	g2pio.tables(tests, args.out)
+	tbgtio.tables(tests, args.out)
 
 sys.exit()
