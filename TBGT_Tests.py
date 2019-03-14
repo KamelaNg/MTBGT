@@ -132,7 +132,7 @@ def hain(mapdict, sampleGenomePos, outPrefix):#Hardcode the codon to wildtype nu
 		'428' : {'AGG':[['WT1'],['']]},
 		'430' : {'CCG':[['WT2'],['']]},
 		'431' : {'GGC':[['WT2'],['']]}, 
-		'432' : {'GAA':[['WT2','WT3','WT4'],['']]},
+		'432' : {'GAA':[['WT2','WT3'],['']]},
 		'434' : {'GTG':[['WT3'],['']],'ATA':[['WT3'],['']],'ACG':[['WT3'],['']]}, 
 		'435' : {'GTC':[['WT3','WT4'],['MUT1']],'TAC':[['WT3','WT4'],['']],'TTC':[['WT3','WT4'],['']],'GGC':[['WT3','WT4'],['']]}, 
 		'437' : {'GAC':[['WT4'],['']]},
