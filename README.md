@@ -1,6 +1,6 @@
 # TBGT.py README
 
-The TBGT algorithm is implemented in Python 3.4, the only prerequisite, and could be run on any python-enabled operating system. We wrote 3 scripts – TBGT, TBGT_IO, and TBGT_Tests, where TBGT.py is the main scipt to be run in the command line, and scripts ‘IO’ and ‘Tests’ are imported into this main script as tbgtio and tbgtt respectively.
+The TBGT tool can be run on any python-enabled operating system with no additional prerequisites. The tool is comprised of 3 scripts – TBGT, TBGT_IO, and TBGT_Tests, where TBGT.py is the main scipt to be run in the command line, and scripts ‘IO’ and ‘Tests’ are imported into this main script as tbgtio and tbgtt respectively.
 
 TBGT.py parses the inputs, reads in the map file, then creates a dictionary of codons to genome positions. It then sets-up the type of input file (VCF or tab) to be read, keeping the SNP that is present at each of the positions in the genome, and creates a dictionary where the core filename is the key and a dictionary of all genome positions (keys) and their SNPs (if any) (values) is returned. It then sets-up the tests to be run and tables to be outputed as specified by the user.
 
