@@ -62,6 +62,7 @@ def vcfInput(genomePos,folder):
 			sampleName=re.sub("_.*","",File)
 			sampleName=re.sub("\.vcf","",sampleName)
 			sampleName=re.sub(".*/","",sampleName)
+			print(sampleName)
 			genomeSNPmap=dict.fromkeys(genomePos)
 			while 1:
 				line=vcfF.readline()
