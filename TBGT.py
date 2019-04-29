@@ -65,7 +65,7 @@ If the summary option is selected, a tab delimited file with the frequency and t
 Tests are in the order Xpert, Ultra, Hain, Nipro, Sanger (or a subset as requested)
 
 Usage:
-python TBGT.py --folder <folderName> --map <codonMapFile> (optional) --out <outputFilename> (optional) --tables y/n (optional)
+python TBGT.py --folder <folderName> --type tab/vcf --map <codonMapFile> (optional) --out <outputFilename> (optional) --tables y/n (optional)
 """
 
 #parse the inputs
