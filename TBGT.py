@@ -40,7 +40,7 @@ All tests except Sanger use the above codons except 170 and 491, which are not d
 The Sanger module uses the above default codon list and displays any change in amino acid at these positions. To add more codons, they must be added to the dictionary at the top of the geno_to_Probe_Tests.py module, including the wildtype nucloetides for the 3 codon positions.
 
 
-The filename prefix for the output is optional. If not supplied, output will be genomeToProbe (e.g. genomeToProbe_Xpert.txt etc. )
+The filename prefix for the output is optional. If not supplied, output will be GenomeToTest (e.g. GenomeToTest_Xpert.txt etc. )
 
 The tests to run are supplied as letter inputs. To run all the tests the --tests flag is not needed or can supply --tests all. For the individual tests the following codes are used (lower or upper case)
 X	Xpert
@@ -72,7 +72,7 @@ python TBGT.py --folder <folderName> --type tab/vcf --map <codonMapFile> (option
 parser = argparse.ArgumentParser()
 parser.add_argument('--folder', required=True, help='Folder containing the vcf/tab files to be processed')
 parser.add_argument('--map', required=False, default="default_mapfile.txt", help='File listing the relationship between codon and genome position (default is "default_mapfile.txt" supplied with script)')
-parser.add_argument('--out', required=False, default="genomeToProbe", help='Filename prefix for output (default is "genomeToProbe")')
+parser.add_argument('--out', required=False, default="GenomeToTest", help='Filename prefix for output (default is "GenomeToTest")')
 parser.add_argument('--tests', required=False, default="all", help='The different tests to run (see helpfile)')
 parser.add_argument('--type', required=True, help='Whether input is vcf or tab')
 parser.add_argument('--summary', required=False, default="Y", help='Option to create an tab delimited overview tables file')
