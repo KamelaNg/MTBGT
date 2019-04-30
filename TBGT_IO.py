@@ -116,7 +116,7 @@ def xpertTables(F,tsF,testName):
 		if sections[0]=="Sample name":#header line
 			continue	
 		if sections[1]=="NOT DETECTED":
-			countdict["Rif Sensitive"]+=1
+			countdict["Rifampicin-Sensitive"]+=1
 			total+=1
 		else:
 			countdict[sections[4]]+=1	
@@ -146,7 +146,7 @@ def lpaTables(F,tsF,testName):
 		if sections[0]=="Sample name":#header line
 			continue	
 		if sections[1]=="NOT DETECTED":
-			countdict["Rif Sensitive"]+=1
+			countdict["Rifampicin-Sensitive"]+=1
 			total+=1
 		else:
 			if sections[5]!="":
