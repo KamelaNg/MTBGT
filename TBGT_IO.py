@@ -96,7 +96,7 @@ def writeTables(tsF,testName,cd,pd):
 	propkeys=list(pd.keys())
 	propkeys.sort()
 	for pk in propkeys:
-		tsF.write(pk+"\t"+str(round(pd[pk],2))+"\n")
+		tsF.write(pk+"\t"+str(round(pd[pk],3))+"\n")
 	tsF.write("\n")
 
 '''
