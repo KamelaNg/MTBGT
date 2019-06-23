@@ -4,7 +4,7 @@ The TBGT tool can be run on any python-enabled operating system with no addition
 
 TBGT.py parses the inputs, reads in the map file, then creates a dictionary of codons to genome positions. It then sets-up the type of input file (VCF or tab) to be read, keeping the SNP that is present at each of the positions in the genome, and creates a dictionary where the core filename is the key and a dictionary of all genome positions (keys) and their SNPs (if any) (values) is returned. It then sets-up the tests to be run and tables to be outputed as specified by the user.
 
-It is executed as: python3 TBGT.py --folder <folderName> --map <codonMapFile> (optional) --out <outputFilename> (optional) --tables y/n. (optional).
+It is executed as: python3 TBGT.py --folder <folderName> --type tab/vcf --map <codonMapFile> (optional) --out <outputFilename> (optional) --tables y/n. (optional).
 
 The script accepts two types of input file – VCF or MTBseq tab. The folder containing the input files to be read and processed as well as the file type are required inputs from the user, whereas the map, prefix of output files, and summary table are optional. The user has to specify the path or location of the input files by typing in the argument --folder followed by the path or location of the directory, and the specifc format of the input file by typing in the argument --type followed by either VCF or tab, in which upper or lower case are both acceptable. By default, the module will run all the RDTs and Sanger sequencing on the VCF and tab files. The user has the option to select which individual tests to run. 
 
