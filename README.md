@@ -20,6 +20,16 @@ The mtbgtt script examines each VCF or tab file in the folder to check for genom
 
 The rpoB Sanger module extracts all RR-associated SNPs from the whole genome sequences and outputs it as 3-letter WT amino acid followed by the codon number (position) and the 3-letter mutant amino acid.
 
-The generated output is a tab-delimited file that can be easily imported into Excel. It informs the end-user of the following details for each input file processed: the Sample name, RIF resistance or susceptibility indicated as RIF Resistance DETECTED or NOT DETECTED respectively; mutant codon position, and mutant codon nucleotides, and sample output list which is a series of 0’s or 1’s indicating absence or presence of the capturing probe for the RDTs, and the RR-conferring mutation for rpoB Sanger sequencing. Capturing probe and sample results profile will be shown for classic Xpert and Ultra; absent WT and developing mutant probes, and sample results profile for LPA-Hain and LPA-Nipro; and RR-conferring mutation for rpoB Sanger sequencing. Additionally, a summary table with frequencies and proportions of RS-TB cases detected and RDT probes and RR-conferring mutations will be generated.
+The generated output is a tab-delimited file that can be easily imported into Excel through the following steps: 
+1) Open Microsoft Excel 2016.
+2) Click on the Data tab.
+3) In the Get & Transform Data group, click from Text/CSV.
+4) A window will pop-up. Select the tab-delimited output file you wish to import.
+5) Click Import. The Text Import process will then commence.
+6) On the top of the pop-up dialogue box, check if 'Tab' is selected under Delimiter drop-down menu.
+7) Click Load.
+8) You can then modify the Table style and perform your analysis.
+
+The output informs the end-user of the following details for each input file processed: the Sample name, RIF resistance or susceptibility indicated as RIF Resistance DETECTED or NOT DETECTED respectively; mutant codon position, and mutant codon nucleotides, and sample output list which is a series of 0’s or 1’s indicating absence or presence of the capturing probe for the RDTs, and the RR-conferring mutation for rpoB Sanger sequencing. Capturing probe and sample results profile will be shown for classic Xpert and Ultra; absent WT and developing mutant probes, and sample results profile for LPA-Hain and LPA-Nipro; and RR-conferring mutation for rpoB Sanger sequencing. Additionally, a summary table with frequencies and proportions of RS-TB cases detected and RDT probes and RR-conferring mutations will be generated.
 
 If the summary option is selected, a tab delimited file with the frequency and total count of each probe (Xpert, Ultra, Haina nd Nipro) or mutation (Sanger) along with the rifampicin sensitive counts is created. Tests are in the order Xpert, Ultra, Hain, Nipro, Sanger (or a subset as requested).
