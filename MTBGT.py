@@ -2,8 +2,8 @@
 import sys
 import re
 import argparse
-import TBGT_IO as tbgtio
-import TBGT_Tests as tbgtt
+import MTBGT_IO as mtbgtio
+import MTBGT_Tests as mtbgtt
 """
 Author: Kamela Ng, Conor Meehan <Feb 2019>
 
@@ -134,19 +134,19 @@ else:
 
 if tests["X"]==1:	
 	print("Creating classic Xpert outputs")
-	tbgtt.xpert(mapdict, sampleGenomePos, args.out)
+	mtbgtt.xpert(mapdict, sampleGenomePos, args.out)
 if tests["U"]==1:	
 	print("Creating Xpert Ultra outputs")
-	tbgtt.ultra(mapdict, sampleGenomePos, args.out)
+	mtbgtt.ultra(mapdict, sampleGenomePos, args.out)
 if tests["H"]==1:	
 	print("Creating Hain LPA outputs")
-	tbgtt.hain(mapdict, sampleGenomePos, args.out)
+	mtbgtt.hain(mapdict, sampleGenomePos, args.out)
 if tests["N"]==1:	
 	print("Creating Nipro LPA outputs")
-	tbgtt.nipro(mapdict, sampleGenomePos, args.out)
+	mtbgtt.nipro(mapdict, sampleGenomePos, args.out)
 if tests["S"]==1:	
 	print("Creating rpoB Sanger sequencing outputs")
-	tbgtt.sanger(mapdict, sampleGenomePos, args.out)
+	mtbgtt.sanger(mapdict, sampleGenomePos, args.out)
 
 print("RDT test conversion complete")
 
@@ -154,6 +154,6 @@ print("RDT test conversion complete")
 #Create tables as requested by the user
 if args.summary.upper()=="Y":
 	print("Creating summary tables")
-	tbgtio.tables(tests, args.out)
+	mtbgtio.tables(tests, args.out)
 
 sys.exit()
