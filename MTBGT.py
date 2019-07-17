@@ -110,13 +110,12 @@ while 1:
 mapf.close()
 
 
-
 #read in the tab or vcf files, keeping the SNP that is present at each of the positions in the genomePos
 #create a dictionary where the filename (before the underscore of the filename) is the key and a dictionary of all genome positions (keys) and their SNPs (if any) (values) is returned
 if args.type.upper()=='TAB':
-	sampleGenomePos= tbgtio.tabInput(genomePos,args.folder)
+	sampleGenomePos= mtbgtio.tabInput(genomePos,args.folder)
 elif args.type.upper()=='VCF':
-	sampleGenomePos= tbgtio.vcfInput(genomePos,args.folder)
+	sampleGenomePos= mtbgtio.vcfInput(genomePos,args.folder)
 else:
 	print("\n type input not recognised. Please use tab or vcf")
 	sys.exit()
